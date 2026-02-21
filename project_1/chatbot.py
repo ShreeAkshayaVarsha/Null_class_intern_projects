@@ -1,19 +1,15 @@
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
+from retriever import retrieve
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+def chatbot():
+    print("🤖 Dynamic Knowledge Chatbot (type 'exit' to quit)")
+    while True:
+        query = input("\nYou: ")
+        if query.lower() == "exit":
+            break
 
-index = faiss.read_index("faiss_index/index.faiss")
+        docs = retrieve(query)
+        response = "\n".join(docs)
 
-with open("faiss_index/texts.txt", "r", encoding="utf-8") as f:
-    docs = f.read().split("\n---\n")
+        print("\nBot:", response)
 
-def ask(question):
-    q_embedding = model.encode([question])
-    D, I = index.search(np.array(q_embedding), k=1)
-    return docs[I[0][0]]
-
-while True:
-    q = input("Ask: ")
-    print("\nAnswer from knowledge:\n", ask(q))
+chatbot()

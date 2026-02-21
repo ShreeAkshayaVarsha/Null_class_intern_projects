@@ -13,29 +13,27 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
-# --------------------------------------------------
+
 # PAGE CONFIG
-# --------------------------------------------------
+
 st.set_page_config(page_title="Multilingual Intelligent Chatbot", layout="wide")
 st.title("🌍 Multilingual Intelligent Chatbot")
 
-# --------------------------------------------------
+
 # LOAD MODELS
-# --------------------------------------------------
+
 sent_model = joblib.load("sentiment_model.pkl")
 sent_vectorizer = joblib.load("sentiment_vectorizer.pkl")
 
 intent_model = joblib.load("intent_model.pkl")
 intent_vectorizer = joblib.load("intent_vectorizer.pkl")
 
-# --------------------------------------------------
 # LOG FILE
-# --------------------------------------------------
+
 DATA_FILE = "chatbot_logs.csv"
 
-# --------------------------------------------------
 # FUNCTIONS
-# --------------------------------------------------
+
 def translate_text(text, target_lang):
     return GoogleTranslator(source="auto", target=target_lang).translate(text)
 
@@ -79,9 +77,8 @@ def log_interaction(text, lang, sentiment, intent):
     else:
         df.to_csv(DATA_FILE, index=False)
 
-# --------------------------------------------------
 # CHAT INPUT
-# --------------------------------------------------
+
 user_input = st.text_input("💬 Type your message:")
 
 if user_input:
@@ -121,9 +118,9 @@ if user_input:
 
     log_interaction(user_input, lang, sentiment, intent)
 
-# --------------------------------------------------
+
 # ANALYTICS BUTTON
-# --------------------------------------------------
+
 st.divider()
 show_analytics = st.button("📊 Show Analytics Dashboard")
 
@@ -136,18 +133,18 @@ if show_analytics:
 
         col1, col2 = st.columns(2)
 
-        # ------------------------------
+        
         # Sentiment Distribution
-        # ------------------------------
+        
         with col1:
             st.subheader("😊 Sentiment Distribution")
             fig, ax = plt.subplots(figsize=(4, 3))
             sns.countplot(x="sentiment", data=data, ax=ax)
             st.pyplot(fig)
 
-        # ------------------------------
+        
         # Language Distribution
-        # ------------------------------
+        
         with col2:
             st.subheader("🌍 Language Usage")
             fig, ax = plt.subplots(figsize=(4, 3))
@@ -156,9 +153,9 @@ if show_analytics:
             ax.set_ylabel("Messages")
             st.pyplot(fig)
 
-        # ------------------------------
+        
         # Intent Pie Chart
-        # ------------------------------
+        
         st.subheader("🎯 Intent Distribution")
         fig = px.pie(
             data,
@@ -167,9 +164,9 @@ if show_analytics:
         )
         st.plotly_chart(fig, use_container_width=False)
 
-        # ------------------------------
+        
         # Sentiment vs Intent Heatmap
-        # ------------------------------
+        
         st.subheader("🔥 Sentiment vs Intent Analysis")
         pivot = pd.crosstab(data["intent"], data["sentiment"])
         fig, ax = plt.subplots(figsize=(5, 3))

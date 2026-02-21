@@ -3,14 +3,14 @@ import re
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# --------------------------------------------------
+
 # Page title
-# --------------------------------------------------
+
 st.title("Customer Sentiment Aware Chatbot")
 
-# --------------------------------------------------
+
 # Sentiment word lists
-# --------------------------------------------------
+
 positive_words = [
     "good", "great", "excellent", "happy", "love",
     "awesome", "nice", "satisfied", "amazing"
@@ -21,12 +21,12 @@ negative_words = [
     "angry", "frustrated", "disappointed", "problem", "issue"
 ]
 
-# --------------------------------------------------
+
 # Sentiment analysis function
-# --------------------------------------------------
+
 def analyze_sentiment(text):
     text = text.lower()
-    text = re.sub(r"[^\w\s]", "", text)  # remove punctuation
+    text = re.sub(r"[^\w\s]", "", text)  
     words = text.split()
     score = 0
 
@@ -38,18 +38,18 @@ def analyze_sentiment(text):
 
     return score
 
-# --------------------------------------------------
+
 # User input
-# --------------------------------------------------
+
 user_input = st.text_input("Type your message here:")
 
 # Store history for analytics
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# --------------------------------------------------
+
 # Process input
-# --------------------------------------------------
+
 if user_input:
     score = analyze_sentiment(user_input)
 
@@ -69,9 +69,9 @@ if user_input:
     # Save conversation for analytics
     st.session_state.history.append(sentiment)
 
-# --------------------------------------------------
+
 # Analytics Button
-# --------------------------------------------------
+
 st.markdown("---")
 show_analytics = st.button("📊 Show Analytics")
 
@@ -88,9 +88,9 @@ if show_analytics and st.session_state.history:
     col2.metric("Negative", sentiment_counts.get("Negative", 0))
     col3.metric("Neutral", sentiment_counts.get("Neutral", 0))
 
-    # --------------------------------------------------
+    
     # Small Bar Chart
-    # --------------------------------------------------
+    
     fig, ax = plt.subplots(figsize=(4, 3))
     sentiment_counts.plot(kind="bar", ax=ax)
     ax.set_title("Sentiment Distribution")

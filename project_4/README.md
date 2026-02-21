@@ -1,18 +1,16 @@
-# 🧠 Computer Science Research Chatbot  
+# Computer Science Research Chatbot  
 ### NLP / AI Research Assistant using arXiv Papers
 
----
 
-## 📌 Project Overview
+##  Project Overview
 
 This project implements an AI-powered research chatbot that acts as an expert in the Computer Science domain.  
 It retrieves relevant research papers from the arXiv dataset, summarizes them, and explains complex concepts in simple language.
 
 The chatbot is built using Streamlit, Natural Language Processing (NLP) techniques, and an open-source Large Language Model (LLM).
 
----
 
-## 🎯 Objectives
+##  Objectives
 
 - Build a domain-specific chatbot for Computer Science
 - Retrieve relevant arXiv research papers
@@ -20,9 +18,7 @@ The chatbot is built using Streamlit, Natural Language Processing (NLP) techniqu
 - Support follow-up questions
 - Provide concept visualization
 
----
-
-## 📂 Dataset
+##Dataset
 
 - Dataset Name: arXiv Metadata Dataset
 - Source: https://www.kaggle.com/datasets/Cornell-University/arxiv
@@ -32,9 +28,7 @@ The chatbot is built using Streamlit, Natural Language Processing (NLP) techniqu
   - cs.CL (Computational Linguistics)
   - cs.LG (Machine Learning)
 
----
-
-## 🧩 System Architecture
+##  System Architecture
 
 1. Data Loading  
    - Stream-based loading of large JSON dataset  
@@ -55,9 +49,8 @@ The chatbot is built using Streamlit, Natural Language Processing (NLP) techniqu
 5. Visualization  
    - WordCloud for concept visualization  
 
----
 
-## 🛠 Technologies Used
+##  Technologies Used
 
 - Python
 - Streamlit
@@ -68,9 +61,8 @@ The chatbot is built using Streamlit, Natural Language Processing (NLP) techniqu
 - Matplotlib
 - WordCloud
 
----
 
-## ⚙ Installation & Setup
+##  Installation & Setup
 
 ### Step 1: Install Dependencies
 

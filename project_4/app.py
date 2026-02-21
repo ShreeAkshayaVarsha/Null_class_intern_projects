@@ -12,15 +12,15 @@ import matplotlib.pyplot as plt
 
 nltk.download("punkt")
 
-# ---------------------------------
+
 # CONFIG
-# ---------------------------------
-DATA_PATH = r"C:\Users\Aa\OneDrive\Desktop\Final project null class\arxiv-cs-chatbot\data\arxiv-metadata-oai-snapshot.json"
+
+DATA_PATH = DATA_PATH = r"C:\Users\Aa\OneDrive\Desktop\Final project null class\project_4\data\arxiv-metadata-oai-snapshot.json"
 MAX_PAPERS = 3000
 
-# ---------------------------------
+
 # LOAD DATA (MEMORY SAFE)
-# ---------------------------------
+
 @st.cache_data
 def load_data(max_papers):
     records = []
@@ -43,9 +43,9 @@ def load_data(max_papers):
                 break
 
     return pd.DataFrame(records)
-# ---------------------------------
+
 # SEARCH ENGINE
-# ---------------------------------
+
 @st.cache_data
 def build_search_engine(texts):
     vectorizer = TfidfVectorizer(
@@ -56,9 +56,9 @@ def build_search_engine(texts):
     vectors = vectorizer.fit_transform(texts)
     return vectorizer, vectors
 
-# ---------------------------------
+
 # LOAD OPEN-SOURCE LLM (FLAN-T5)
-# ---------------------------------
+
 @st.cache_resource
 def load_llm():
     return pipeline(
@@ -68,16 +68,16 @@ def load_llm():
         max_new_tokens=150
     )
 
-# ---------------------------------
+
 # EXTRACTIVE FALLBACK SUMMARY
-# ---------------------------------
+
 def extractive_summary(text, max_sentences=3):
     sentences = sent_tokenize(text)
     return " ".join(sentences[:max_sentences])
 
-# ---------------------------------
+
 # WORD CLOUD VISUALIZATION
-# ---------------------------------
+
 def show_wordcloud(text):
     wc = WordCloud(
         width=800,
@@ -90,9 +90,8 @@ def show_wordcloud(text):
     ax.axis("off")
     st.pyplot(fig)
 
-# ---------------------------------
 # STREAMLIT UI
-# ---------------------------------
+
 st.set_page_config(page_title="Computer Science Research Chatbot", layout="wide")
 st.title("🤖 Computer Science Research Chatbot")
 st.write("NLP / AI Research Assistant using arXiv papers")
@@ -102,9 +101,9 @@ df = load_data(MAX_PAPERS)
 vectorizer, vectors = build_search_engine(df["abstract"])
 llm = load_llm()
 
-# ---------------------------------
+
 # USER QUERY
-# ---------------------------------
+
 query = st.text_input("🔍 Ask a research question (e.g., Explain transformers in NLP)")
 
 if query:
@@ -134,15 +133,15 @@ if query:
             except:
                 st.write(extractive_summary(paper["abstract"]))
 
-    # ---------------------------------
+    
     # CONCEPT VISUALIZATION
-    # ---------------------------------
+    
     st.subheader("📊 Concept Visualization")
     show_wordcloud(combined_text)
 
-# ---------------------------------
+
 # FOLLOW-UP QUESTIONS
-# ---------------------------------
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 

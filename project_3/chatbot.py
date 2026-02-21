@@ -4,9 +4,9 @@ import pickle
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# ---------------------------------------------------
+
 # PART 1 → BUILD VECTOR STORE (RUN ONLY ONE TIME)
-# ---------------------------------------------------
+
 
 def build_vector_store():
     import os
@@ -39,15 +39,14 @@ def build_vector_store():
         "embeddings": doc_embeddings,
     }
 
-    # 🔥 CREATE THE DIRECTORY IF IT DOES NOT EXIST
+    #  CREATE THE DIRECTORY IF IT DOES NOT EXIST
     os.makedirs("models", exist_ok=True)
 
     pickle.dump(vector_store, open("models/vector_store.pkl", "wb"))
     print("🎉 Vector store created successfully! Saved as models/vector_store.pkl")
 
-# ---------------------------------------------------
+
 # PART 2 → ANSWERING FUNCTION
-# ---------------------------------------------------
 
 def get_answer(query):
     store = pickle.load(open("models/vector_store.pkl", "rb"))
@@ -65,10 +64,8 @@ def get_answer(query):
     return answers[best_idx]
 
 
-# ---------------------------------------------------
 # AUTO RUN VECTOR STORE CREATION
 # ONLY if vector_store.pkl does NOT exist
-# ---------------------------------------------------
 
 import os
 
